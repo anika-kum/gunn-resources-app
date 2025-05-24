@@ -16,10 +16,24 @@ def initialize_csv():
             writer.writerow(['item_name', 'person_name', 'description', 'photo_url', 'rent_or_buy', 'price'])
 
 def save_item_to_csv(item_data):
-    encoded_img = base64.b64encode(item_data[3]).decode("utf-8")
+    photo_file = item_data[3]
+    if photo_file is not None:
+        photo_bytes = photo_file.read()
+        encoded_img = base64.b64encode(photo_bytes).decode("utf-8")
+    else:
+        encoded_img = ""
+
     with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(item_data[0], item_data[1], item_data[2], encoded_img, item_data[4], item_data[5])
+        writer.writerow([
+            item_data[0],  # item_name
+            item_data[1],  # person_name
+            item_data[2],  # description
+            encoded_img,   # base64 image string
+            item_data[4],  # rent_or_buy
+            item_data[5],  # price
+        ])
+
 
 
 def load_items_from_csv():
@@ -46,7 +60,7 @@ def add_item_form():
         description = st.text_area("Description (condition, etc.)")
         photo_url = st.file_uploader("Image File", type=["png", "jpg", "jpeg"])
         rent_or_buy = st.selectbox("Rent or Buy", ["Rent", "Buy"])
-        price = st.number_input("Price", min_value=0.0, step=0.01, format="%.2f")
+        price = st.number_input("Price (in USD)", min_value=0.0, step=1, format="%.2f")
 
         submitted = st.form_submit_button("Submit")
 
@@ -65,17 +79,19 @@ def load_data():
         st.info("Nothing available yet.")
     else:
         for i, row in df.iterrows():
-            tile = st.container(height=500)
+            tile = st.container()
             with tile:
                 st.markdown(f"**Item Name:** {row['item_name']}")
                 st.markdown(f"**Sold by:** {row['person_name']}")
                 st.markdown(f"**Description:** {row['description']}")
                 st.markdown(f"**For:** {row['rent_or_buy']}")
-                st.markdown(f"**Price:** {row['price']}")
+                st.markdown(f"**Price:** ${row['price']:.2f}")
+
                 try:
-                    image_bytes = base64.b64decode(row['photo_url'])
-                    image = io.BytesIO(image_bytes)
-                    st.markdown("**Photo (if available):**") 
-                    st.image(image)
+                    if isinstance(row['photo_url'], str) and row['photo_url'].strip() != "":
+                        image_bytes = base64.b64decode(row['photo_url'])
+                        image = io.BytesIO(image_bytes)
+                        st.markdown("**Photo (if available):**")
+                        st.image(image)
                 except Exception as e:
                     st.error(f"Error loading image: {e}")
