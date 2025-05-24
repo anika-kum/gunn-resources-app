@@ -1,1 +1,5 @@
 item_name,person_name,description,photo_url,rent_or_buy,price
+Cat,"Anika, anikakumaremail@gmail.com",Just born,"UploadedFile(file_id='06863881-9b3c-41ae-8c5f-b1bae6093763', name='images.jpeg', type='image/jpeg', size=8982, _file_urls=file_id: ""06863881-9b3c-41ae-8c5f-b1bae6093763""
+upload_url: ""/_stcore/upload_file/60f242b5-d185-4873-a262-e485ebf1f254/06863881-9b3c-41ae-8c5f-b1bae6093763""
+delete_url: ""/_stcore/upload_file/60f242b5-d185-4873-a262-e485ebf1f254/06863881-9b3c-41ae-8c5f-b1bae6093763""
+)",Buy,1.0
