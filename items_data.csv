@@ -1,0 +1,4 @@
+item_name,person_name,description,photo_url,rent_or_buy,price
+d,3,d,3,Buy,10.0
+Bicycle,Audrey,"Blue, used!",,Rent,10.0
+3,3,3,3,Buy,0.003
