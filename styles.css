@@ -1,0 +1,19 @@
+.stHeading h1{
+    color: #0b0721;
+}
+
+
+.stApp{
+    margin: auto;
+    overflow: auto;
+    background: linear-gradient(to right, #2D7D75, #3BA99C, #A6D8D3, #7EBCE6, #8980F5);
+}
+
+.stContainer{
+    background-color: #A6D8D3; /* tiff blue */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    color: #0F4C46;
+    }

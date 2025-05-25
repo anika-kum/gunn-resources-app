@@ -44,14 +44,13 @@ def load_items_from_csv():
 
 def show_rent():
     st.title("Renting and buying tools")
-    load_data()
     add_button = st.button("Add product for rent or buy")
     if add_button:
         st.session_state['show_form'] = True
     if st.session_state.get('show_form'):
         add_item_form()
-    
     initialize_csv()
+    load_data()
     
 def add_item_form():
     with st.form("item_form"):
@@ -79,7 +78,7 @@ def load_data():
         st.info("Nothing available yet.")
     else:
         for i, row in df.iterrows():
-            tile = st.container()
+            tile = st.container(border=True)
             with tile:
                 st.markdown(f"**Item Name:** {row['item_name']}")
                 st.markdown(f"**Sold by:** {row['person_name']}")
